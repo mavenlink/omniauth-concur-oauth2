@@ -28,7 +28,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-You must have a consumer key and secret, To register your application with Concur and obtain a consumer key and secret, go to the [Concur application registration](https://dev.Concur.com/apps/new).
+You must have a consumer key and secret, which are created when you register your Partner Application.
 
 For additional information about OmniAuth, visit [OmniAuth wiki](https://github.com/intridea/omniauth/wiki).
 
