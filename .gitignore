@@ -1,0 +1,17 @@
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
+rcov generated
+coverage
+
+rdoc generated
+rdoc
+
+yard generated
+doc
+.yardoc
+
+For MacOS:
+
+.DS_Store
