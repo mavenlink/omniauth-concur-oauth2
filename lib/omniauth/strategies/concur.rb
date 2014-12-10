@@ -1,7 +1,14 @@
 require 'omniauth-oauth2'
+require 'active_support/core_ext'
 
-OAuth2::Response.register_parser(:custom_xml, ['text/xml', 'application/rss+xml', 'application/rdf+xml', 'application/atom+xml']) do |body|
-  MultiXml.parse(body).deep_transform_keys{ |key| key.to_s.downcase } rescue body
+OAuth2::Response.register_parser(:concur_xml, ['text/xml', 'application/rss+xml', 'application/rdf+xml', 'application/atom+xml']) do |body|
+  parsed = MultiXml.parse(body).deep_transform_keys{ |key| key.to_s.downcase }['access_token']
+  {
+    'access_token' => parsed['token'],
+    'expires_at' => parsed['expiration_date'].to_datetime,
+    'refresh_token' => parsed['refresh_token'],
+    'instance_url' => parsed['instance_url'],
+  }
 end
 
 module OmniAuth
@@ -15,7 +22,7 @@ module OmniAuth
         :token_method => :get,
         :access_url => '/net2/oauth2/Access.ashx',
       }
-      option :token_params, { :parse => :custom_xml }
+      option :token_params, { :parse => :concur_xml }
     end
   end
 end
