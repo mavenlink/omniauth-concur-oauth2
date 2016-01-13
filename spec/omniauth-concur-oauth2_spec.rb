@@ -19,13 +19,13 @@ describe OmniAuth::Strategies::Concur do
         <Access_Token>
           <Instance_Url>https://www.concursolutions.com/</Instance_Url>
           <Token>foobar</Token>
-          <Expiration_date>12/10/2015 5:02:12 PM</Expiration_date>
+          <Expiration_date>1/13/2017 5:02:12 PM</Expiration_date>
           <Refresh_Token>barbaz</Refresh_Token>
         </Access_Token>
       XML
       expected = {
         'access_token' => 'foobar',
-        'expires_at' => DateTime.parse('12/10/2015 5:02:12 PM'),
+        'expires_at' => DateTime.parse('2017-1-13 17:02:12'),
         'refresh_token' => 'barbaz',
         'instance_url' => 'https://www.concursolutions.com/',
       }
