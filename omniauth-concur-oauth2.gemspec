@@ -19,6 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'activesupport', '~> 4.0'
-  s.add_dependency 'omniauth-oauth2', '~> 1.3.1'
+  s.add_dependency 'omniauth-oauth2', '>= 1.3.1'
 end
-
