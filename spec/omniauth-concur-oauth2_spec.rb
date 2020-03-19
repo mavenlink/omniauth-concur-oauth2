@@ -32,6 +32,15 @@ describe OmniAuth::Strategies::Concur do
       }
       expect(parser.call(data)).to eq(expected)
     end
+
+    context "when it gets some XML that doesn't match what we expect from concur" do
+      it 'parses the XML' do
+        data = <<-XML
+          <Foo>my xml</Foo>
+        XML
+        expect(parser.call(data)).to eq({ 'Foo' => 'my xml' })
+      end
+    end
   end
 
   describe 'client options' do
