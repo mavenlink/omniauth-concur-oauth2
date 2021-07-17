@@ -13,7 +13,8 @@ describe OmniAuth::Strategies::Concur do
   end
 
   describe ':concur_xml response parser' do
-    let(:parser) {OAuth2::Response::PARSERS[:concur_xml]}
+    let(:parser) { OAuth2::Response.class_variable_get(:@@parsers)[:concur_xml] }
+
     it 'parse correctly' do
       data = <<-XML
         <Access_Token>
@@ -24,12 +25,21 @@ describe OmniAuth::Strategies::Concur do
         </Access_Token>
       XML
       expected = {
-        'access_token' => 'foobar',
-        'expires_at' => DateTime.parse('2017-1-13 17:02:12'),
-        'refresh_token' => 'barbaz',
-        'instance_url' => 'https://www.concursolutions.com/',
+          'access_token' => 'foobar',
+          'expires_at' => DateTime.parse('2017-1-13 17:02:12'),
+          'refresh_token' => 'barbaz',
+          'instance_url' => 'https://www.concursolutions.com/',
       }
       expect(parser.call(data)).to eq(expected)
+    end
+
+    context "when it gets some XML that doesn't match what we expect from concur" do
+      it 'parses the XML' do
+        data = <<-XML
+          <Foo>my xml</Foo>
+        XML
+        expect(parser.call(data)).to eq({ 'Foo' => 'my xml' })
+      end
     end
   end
 
