@@ -6,4 +6,5 @@ gemspec
 group :development, :test do
   gem 'rspec'
   gem 'simplecov', :require => false
+  gem 'rake'
 end
