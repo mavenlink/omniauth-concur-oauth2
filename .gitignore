@@ -3,6 +3,7 @@
 pkg/*
 rcov generated
 coverage
+.idea/
 
 rdoc generated
 rdoc
